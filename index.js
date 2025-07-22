@@ -10,6 +10,7 @@ const checkDb = require('./middleware/checkDbConnection');
 const { sequelize } = require('./models');
 
 //routes
+const accountRoutes = require('./routes/accountRoutes');
 const userRoutes = require('./routes/userRoutes');
 const warehouseItemRoutes = require('./routes/warehouseItemRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
@@ -20,7 +21,7 @@ const priceRoutes = require('./routes/priceRoutes');
 const itemRoutes = require('./routes/itemRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
-const deliveryRoutes = require('./routes/DeliveryRoutes');
+const deliveryRoutes = require('./routes/deliveryRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 
 app.use(express.json());
@@ -33,6 +34,7 @@ app.get('/health', checkDb, (req, res) => {
 
 
 // routes
+app.use('/accounts', accountRoutes);
 app.use('/users', userRoutes);
 app.use('/warehouse-items', warehouseItemRoutes); // http://localhost:3000/warehouse-items
 app.use('/suppliers', supplierRoutes);
