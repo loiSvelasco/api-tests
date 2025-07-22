@@ -1,53 +1,50 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const Account = sequelize.define(
+  "Account",
   {
-    expense_id: {
+    account_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    date_time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    payee: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    particulars: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    amount: {
-      type: DataTypes.DECIMAL(6, 2),
-      allowNull: false,
-      defaultValue: 0,
-    },
-    account_id: {
+    employee_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
+    },
+    username: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
     },
   },
   {
-    tableName: "expenses",
+    tableName: "accounts",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['employee_id']
+      },
+      {
+        unique: true,
+        fields: ['username']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = Account;

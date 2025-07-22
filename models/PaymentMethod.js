@@ -1,38 +1,33 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Employee = sequelize.define(
-  "Employee",
+const PaymentMethod = sequelize.define(
+  "PaymentMethod",
   {
-    employee_id: {
+    payment_method_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    firstname: {
+    description: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    lastname: {
+    short_description: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    position: {
+    type: {
       type: DataTypes.STRING(250),
       allowNull: false,
-    },
-    permissions: {
-      type: DataTypes.JSON,
-      allowNull: false,
-      defaultValue: {},
     },
   },
   {
-    tableName: "employees",
+    tableName: "payment_methods",
     timestamps: false,
     underscored: true,
   }
 );
 
-module.exports = Employee;
+module.exports = PaymentMethod;

@@ -1,38 +1,29 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Employee = sequelize.define(
-  "Employee",
+const SysSetting = sequelize.define(
+  "SysSetting",
   {
-    employee_id: {
+    sys_setting_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    firstname: {
+    attribute: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    lastname: {
+    value: {
       type: DataTypes.STRING(250),
       allowNull: false,
-    },
-    position: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    permissions: {
-      type: DataTypes.JSON,
-      allowNull: false,
-      defaultValue: {},
     },
   },
   {
-    tableName: "employees",
+    tableName: "sys_settings",
     timestamps: false,
     underscored: true,
   }
 );
 
-module.exports = Employee;
+module.exports = SysSetting;

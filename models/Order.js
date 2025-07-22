@@ -1,53 +1,60 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const Order = sequelize.define(
+  "Order",
   {
-    expense_id: {
+    order_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    date_time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    payee: {
-      type: DataTypes.STRING(250),
+    transaction_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    particulars: {
-      type: DataTypes.STRING(250),
+    stock_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    type: {
-      type: DataTypes.STRING(250),
+    number_of_box: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
+    },
+    quantity: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    unit_cost: {
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: false,
+      defaultValue: 0,
     },
     amount: {
       type: DataTypes.DECIMAL(6, 2),
       allowNull: false,
       defaultValue: 0,
     },
-    account_id: {
-      type: DataTypes.INTEGER,
+    discount: {
+      type: DataTypes.DECIMAL(6, 2),
       allowNull: false,
+      defaultValue: 0,
     },
   },
   {
-    tableName: "expenses",
+    tableName: "orders",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['transaction_id', 'stock_id']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = Order;

@@ -1,33 +1,35 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Supplier = sequelize.define(
-  "Supplier",
+const StockOnHand = sequelize.define(
+  "StockOnHand",
   {
-    supplier_id: {
+    stock_on_hand_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    company_name: {
-      type: DataTypes.STRING(250),
+    stock_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING(250),
+    number_of_box: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
     },
-    contact_details: {
-      type: DataTypes.STRING(25),
+    quantity: {
+      type: DataTypes.DOUBLE(6, 2),
       allowNull: false,
+      defaultValue: 0,
     },
   },
   {
-    tableName: "suppliers",
+    tableName: "stock_on_hand",
     timestamps: false,
     underscored: true,
   }
 );
 
-module.exports = Supplier;
+module.exports = StockOnHand;

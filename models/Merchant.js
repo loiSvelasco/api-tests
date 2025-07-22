@@ -1,10 +1,10 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Employee = sequelize.define(
-  "Employee",
+const Merchant = sequelize.define(
+  "Merchant",
   {
-    employee_id: {
+    merchant_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -18,21 +18,24 @@ const Employee = sequelize.define(
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    position: {
+    address: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    permissions: {
-      type: DataTypes.JSON,
+    business_name: {
+      type: DataTypes.STRING(250),
       allowNull: false,
-      defaultValue: {},
+    },
+    nature: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
     },
   },
   {
-    tableName: "employees",
+    tableName: "merchants",
     timestamps: false,
     underscored: true,
   }
 );
 
-module.exports = Employee;
+module.exports = Merchant;

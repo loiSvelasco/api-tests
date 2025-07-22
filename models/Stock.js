@@ -1,33 +1,25 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const Stock = sequelize.define(
+  "Stock",
   {
-    expense_id: {
+    stock_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    date_time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    payee: {
-      type: DataTypes.STRING(250),
+    delivery_detail_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    particulars: {
-      type: DataTypes.STRING(250),
+    active_markup: {
+      type: DataTypes.DECIMAL(6, 2),
       allowNull: false,
+      defaultValue: 0,
     },
-    type: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    amount: {
+    active_selling_price: {
       type: DataTypes.DECIMAL(6, 2),
       allowNull: false,
       defaultValue: 0,
@@ -38,16 +30,16 @@ const Expense = sequelize.define(
     },
   },
   {
-    tableName: "expenses",
+    tableName: "stocks",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['delivery_detail_id', 'account_id']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = Stock;

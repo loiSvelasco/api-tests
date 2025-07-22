@@ -1,36 +1,37 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const SupplierReturn = sequelize.define(
+  "SupplierReturn",
   {
-    expense_id: {
+    supplier_return_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    date_time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    payee: {
-      type: DataTypes.STRING(250),
+    supplier_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    particulars: {
-      type: DataTypes.STRING(250),
+    delivery_detail_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    type: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    amount: {
-      type: DataTypes.DECIMAL(6, 2),
+    number_of_box: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+    },
+    quantity: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    active_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     account_id: {
       type: DataTypes.INTEGER,
@@ -38,16 +39,16 @@ const Expense = sequelize.define(
     },
   },
   {
-    tableName: "expenses",
+    tableName: "supplier_returns",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['supplier_id', 'delivery_detail_id', 'account_id']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = SupplierReturn;

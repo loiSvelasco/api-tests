@@ -1,36 +1,38 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const Transaction = sequelize.define(
+  "Transaction",
   {
-    expense_id: {
+    transaction_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    date_time: {
+    transaction_date_time: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    payee: {
-      type: DataTypes.STRING(250),
+    merchant_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    particulars: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    amount: {
+    amount_due: {
       type: DataTypes.DECIMAL(6, 2),
       allowNull: false,
       defaultValue: 0,
+    },
+    discount: {
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: false,
+      defaultValue: 0,
+    },
+    status: {
+      type: DataTypes.ENUM('Active', 'Draft', 'Void'),
+      allowNull: false,
+      defaultValue: 'Draft',
     },
     account_id: {
       type: DataTypes.INTEGER,
@@ -38,16 +40,16 @@ const Expense = sequelize.define(
     },
   },
   {
-    tableName: "expenses",
+    tableName: "transactions",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['merchant_id', 'account_id']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = Transaction;

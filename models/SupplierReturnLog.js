@@ -1,13 +1,21 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const SupplierReturnLog = sequelize.define(
+  "SupplierReturnLog",
   {
-    expense_id: {
+    supplier_returns_logs_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+      allowNull: false,
+    },
+    supplier_return_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING(250),
       allowNull: false,
     },
     date_time: {
@@ -15,39 +23,22 @@ const Expense = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    payee: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    particulars: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    amount: {
-      type: DataTypes.DECIMAL(6, 2),
-      allowNull: false,
-      defaultValue: 0,
-    },
     account_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
-    tableName: "expenses",
+    tableName: "supplier_returns_logs",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['supplier_return_id', 'account_id']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = SupplierReturnLog;

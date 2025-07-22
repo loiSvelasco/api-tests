@@ -1,53 +1,50 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Expense = sequelize.define(
-  "Expense",
+const DeliveryItemDetail = sequelize.define(
+  "DeliveryItemDetail",
   {
-    expense_id: {
+    delivery_item_detail_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    date_time: {
-      type: DataTypes.DATE,
+    delivery_detail_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      unique: true,
     },
-    payee: {
+    box_code: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    particulars: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
-    },
-    amount: {
-      type: DataTypes.DECIMAL(6, 2),
+    delivery_weight: {
+      type: DataTypes.DOUBLE(6, 2),
       allowNull: false,
       defaultValue: 0,
     },
-    account_id: {
-      type: DataTypes.INTEGER,
+    actual_weight: {
+      type: DataTypes.DOUBLE(6, 2),
       allowNull: false,
+      defaultValue: 0,
+    },
+    undefined: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   },
   {
-    tableName: "expenses",
+    tableName: "delivery_item_details",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['account_id']
+        fields: ['delivery_detail_id']
       }
     ]
   }
 );
 
-module.exports = Expense;
+module.exports = DeliveryItemDetail;

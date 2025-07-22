@@ -1,27 +1,22 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Delivery = sequelize.define(
-  "Delivery",
+const DeliveryDetail = sequelize.define(
+  "DeliveryDetail",
   {
-    delivery_id: {
+    delivery_detail_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    supplier_id: {
+    delivery_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    dr_number: {
-      type: DataTypes.STRING(250),
+    item_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
     delivery_box: {
       type: DataTypes.INTEGER,
@@ -35,39 +30,31 @@ const Delivery = sequelize.define(
     },
     actual_box: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
     actual_weight: {
       type: DataTypes.DOUBLE,
       allowNull: false,
       defaultValue: 0,
     },
-    total_amount: {
-      type: DataTypes.DECIMAL(10, 2),
+    capital: {
+      type: DataTypes.DECIMAL(6, 2),
       allowNull: false,
       defaultValue: 0,
     },
-    status: {
-      type: DataTypes.ENUM('Draft', 'Finalized'),
-      allowNull: false,
-      defaultValue: 'Draft',
-    },
-    account_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
   },
   {
-    tableName: "deliveries",
+    tableName: "delivery_details",
     timestamps: false,
     underscored: true,
     indexes: [
       {
         unique: true,
-        fields: ['supplier_id', 'account_id']
+        fields: ['delivery_id', 'item_id']
       }
     ]
   }
 );
 
-module.exports = Delivery;
+module.exports = DeliveryDetail;

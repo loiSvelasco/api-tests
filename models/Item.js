@@ -5,36 +5,43 @@ const Item = sequelize.define(
   "Item",
   {
     item_id: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       primaryKey: true,
-			autoIncrement: true,
+      autoIncrement: true,
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(250),
       allowNull: false,
     },
-    short_desc: {
-      type: DataTypes.STRING(255),
+    short_description: {
+      type: DataTypes.STRING(250),
       allowNull: false,
     },
     category: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(250),
       allowNull: false,
     },
-		reorder_max_level: {
-      type: DataTypes.INTEGER(10),
+    unit: {
+      type: DataTypes.STRING(250),
       allowNull: false,
+      defaultValue: 'Kgs',
     },
-    reorder_min_level: {
-      type: DataTypes.INTEGER(10),
+    reorder_level_upper: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
+    },
+    reorder_level_lower: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
     },
   },
   {
-    tableName: "tbl_items",
+    tableName: "items",
     timestamps: false,
-    underscored: true, // optional: if you want snake_case mapping
+    underscored: true,
   }
 );
 

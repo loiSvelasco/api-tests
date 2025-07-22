@@ -1,38 +1,44 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Employee = sequelize.define(
-  "Employee",
+const Log = sequelize.define(
+  "Log",
   {
-    employee_id: {
+    log_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    firstname: {
+    account_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    module: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    lastname: {
+    event: {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
-    position: {
-      type: DataTypes.STRING(250),
+    date_time: {
+      type: DataTypes.DATE,
       allowNull: false,
-    },
-    permissions: {
-      type: DataTypes.JSON,
-      allowNull: false,
-      defaultValue: {},
+      defaultValue: DataTypes.NOW,
     },
   },
   {
-    tableName: "employees",
+    tableName: "logs",
     timestamps: false,
     underscored: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['account_id']
+      }
+    ]
   }
 );
 
-module.exports = Employee;
+module.exports = Log;
